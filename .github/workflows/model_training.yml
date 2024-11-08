@@ -23,20 +23,10 @@ jobs:
           python -m pip install --upgrade pip
           pip install huggingface_hub
 
-      - name: Log in to Hugging Face Hub
-        run: |
-          huggingface-cli login --token ${{ secrets.HF_TOKEN }}  # Menggunakan token dari GitHub Secrets
-
-      - name: Verify Login
-        run: |
-          huggingface-cli whoami  # Memverifikasi bahwa login berhasil
-
       - name: Upload Model to Hugging Face
         run: |
-          huggingface-cli repo create trash --type model --organization InnovateXLab --private --yes
-
           python -m huggingface_hub.upload_file \
             --path_or_file notebooks/simpan_resnet_model.h5 \
-            --repo_id InnovateXLab/trash \
+            --repo_id kerjaaa/trash \
             --repo_type model \
-            --token ${{ secrets.HF_TOKEN }}
+            --token ${{ secrets.HF_TOKEN }}  # Menggunakan token dari GitHub Secrets
