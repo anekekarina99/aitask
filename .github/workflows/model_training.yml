@@ -25,6 +25,12 @@ jobs:
         run: |
           python -m pip install --upgrade pip  
           pip install -r requirements.txt  # Install dependencies including nbconvert
+          pip install jupyter  # Ensure Jupyter is installed
+
+      - name: Check Jupyter installation
+        run: |
+          which jupyter
+          jupyter --version
 
       - name: Run Notebook
         run: |
