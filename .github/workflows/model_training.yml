@@ -1,4 +1,4 @@
-name: Deploy to huggingface
+name: Deploy to Hugging Face
 
 on:
   push:
@@ -8,30 +8,41 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: backendcloud/hugging-push@v0.2.3
+      - name: Push to Hugging Face
+        uses: backendcloud/hugging-push@v0.2.3
         with:
           # The Hugging Face repo id you want to sync to.
           # A repo with this name will be created if it doesn't exist. Required.
-          # The github username is not included. ex: not like this 'username/reponame', but like this: 'reponame'
-          # the key of huggingface_repo can be omitted. If the key is commented out, it defaults to the same name as the Github repository. 
+          # The GitHub username is not included. ex: not like this 'username/reponame', but like this: 'reponame'
+          # The key of huggingface_repo can be omitted. If the key is commented out, it defaults to the same name as the GitHub repository.
           # huggingface_repo: 'ChatGPT'
 
           # Hugging Face token with write access. Required.
           # Here, we provide a token that we called `HF_TOKEN` when we added the secret to our GitHub repo.
           hf_token: ${{ secrets.HF_TOKEN }}
 
+      - name: Login to Hugging Face Hub
+        uses: osbm/huggingface_login@v0.1
+        with:
+          username: ${{ secrets.HD_USERNAME }}
+          password: ${{ secrets.HF_PASSWORD }}
+          add_to_git_credentials: true
+
+      - name: Check if logged in
+        run: |
+          huggingface-cli whoami
+
+      - name: Sync to Hugging Face Repo
+        with:
           # The type of repo you are syncing to: model, dataset, or space.
           # Defaults to space.
           repo_type: 'space'
-  
-          # If true and the Hugging Face repo doesn't already exist, it will be created
-          # as a private repo.
-          #
+
+          # If true and the Hugging Face repo doesn't already exist, it will be created as a private repo.
           # Note: this param has no effect if the repo already exists.
           private: false
 
-          # If repo type is space, specify a space_sdk. One of: streamlit, gradio, or static
-          #
+          # If repo type is space, specify a space_sdk. One of: streamlit, gradio, or static.
           # This option is especially important if the repo has not been created yet.
           # It won't really be used if the repo already exists.
           space_sdk: 'gradio'
