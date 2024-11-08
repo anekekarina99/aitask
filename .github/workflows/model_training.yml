@@ -30,3 +30,23 @@ jobs:
             --repo_id kerjaaa/trash \
             --repo_type model \
             --token ${{ secrets.HF_TOKEN }}  # Menggunakan token dari GitHub Secrets
+
+name: Sync with Hugging Face Hub
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Sync with Hugging Face
+      uses: anee/huggingface-sync-action@v0.0.1
+      with:
+        github_repo_id: anekekarina99/aitask
+        huggingface_repo_id: kerjaaa/trash
+        repo_type: model
+        space_sdk: gradio
+        hf_token: ${{ secrets.HF_TOKEN }}
