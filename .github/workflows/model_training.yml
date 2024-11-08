@@ -26,13 +26,12 @@ jobs:
           python -m pip install --upgrade pip
           pip install huggingface_hub  # Install library untuk upload ke Hugging Face
 
-      - name: Upload Model to Hugging Face
-        env:
-          HF_TOKEN: ${{ secrets.HF_TOKEN }}  # Pastikan token Hugging Face ada di Secrets GitHub
+      - name: Log in to Hugging Face Hub
         run: |
-          echo "Logging in to Hugging Face"
-          echo "$HF_TOKEN" | huggingface-cli login
-          
+          python -c "from huggingface_hub import login; login(token='${{ secrets.HF_TOKEN }}')"  # Login dengan token otomatis
+
+      - name: Upload Model to Hugging Face
+        run: |
           # Membuat repo model (dengan opsi `--yes` untuk skip prompt konfirmasi)
           huggingface-cli repo create trash --type model --organization InnovateXLab --private --yes
 
@@ -41,4 +40,4 @@ jobs:
             --path_or_file notebooks/simpan_resnet_model.h5 \  # Path file .h5
             --repo_id InnovateXLab/trash \  # Sesuaikan nama organisasi dan repo
             --repo_type model \
-            --token $HF_TOKEN
+            --token ${{ secrets.HF_TOKEN }}
