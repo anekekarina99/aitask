@@ -26,7 +26,7 @@ jobs:
         uses: osbm/huggingface-login@v0.0.1
         with:
           username: ${{ secrets.HF_USERNAME }}
-          key: ${{ secrets.HF_PASSWORDD }}  # Use `token` if `password` is not supported
+          key: ${{ secrets.HF_TOKEN }}  # Use `token` if `password` is not supported
           add_to_git_credentials: false
 
       - name: Check if logged in   
