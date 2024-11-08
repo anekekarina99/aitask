@@ -1,13 +1,13 @@
-import datasets
-import tensorflow as tf
+import datasets # type: ignore
+import tensorflow as tf # type: ignore
 import numpy as np
 import random
 from PIL import Image
 from tensorflow.keras.preprocessing import image  # type: ignore
 from tensorflow.keras.applications import ResNet50  # type: ignore
 from tensorflow.keras import layers, models  # type: ignore
-import wandb
-import tensorflow as tf
+import wandb # type: ignore
+import tensorflow as tf # type: ignore
 import sys
 
 # Memeriksa dan mengatur GPU
