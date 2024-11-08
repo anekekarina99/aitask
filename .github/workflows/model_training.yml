@@ -28,7 +28,7 @@ jobs:
 
       - name: Log in to Hugging Face Hub
         run: |
-          python -c "from huggingface_hub import login; login(token='${{ secrets.HF_TOKEN }}')"  # Login dengan token otomatis
+          huggingface-cli login --token ${{ secrets.HF_TOKEN }}
 
       - name: Upload Model to Hugging Face
         run: |
