@@ -4,9 +4,6 @@ on:
   push:
     branches: 
       - main  
-  pull_request:
-    branches:
-      - main  
 
 jobs:
   upload:
@@ -24,20 +21,22 @@ jobs:
       - name: Install Hugging Face Hub Library
         run: |
           python -m pip install --upgrade pip
-          pip install huggingface_hub  # Install library untuk upload ke Hugging Face
+          pip install huggingface_hub
 
       - name: Log in to Hugging Face Hub
         run: |
-          huggingface-cli login --token ${{ secrets.HF_TOKEN }}
+          huggingface-cli login --token ${{ secrets.HF_TOKEN }}  # Menggunakan token dari GitHub Secrets
+
+      - name: Verify Login
+        run: |
+          huggingface-cli whoami  # Memverifikasi bahwa login berhasil
 
       - name: Upload Model to Hugging Face
         run: |
-          # Membuat repo model (dengan opsi `--yes` untuk skip prompt konfirmasi)
           huggingface-cli repo create trash --type model --organization InnovateXLab --private --yes
 
-          # Menggunakan huggingface_hub untuk upload file .h5
           python -m huggingface_hub.upload_file \
-            --path_or_file notebooks/simpan_resnet_model.h5 \  # Path file .h5
-            --repo_id InnovateXLab/trash \  # Sesuaikan nama organisasi dan repo
+            --path_or_file notebooks/simpan_resnet_model.h5 \
+            --repo_id InnovateXLab/trash \
             --repo_type model \
             --token ${{ secrets.HF_TOKEN }}
