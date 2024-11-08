@@ -15,7 +15,7 @@ jobs:
       - name: Set up Python environment
         uses: actions/setup-python@v5
         with:
-          python-version: '3.8'  # Ganti dengan versi Python yang Anda gunakan
+          python-version: '3.8'  # Change to your Python version
       
       - name: Install dependencies
         run: |
@@ -25,27 +25,18 @@ jobs:
       - name: Login to Hugging Face Hub 
         uses: osbm/huggingface-login@v0.0.2
         with:
-          username: ${{ secrets.HD_USERNAME }}
-          password: ${{ secrets.HF_PASSWORD }}  
-          add_to_git_credentials: true  
-
+          username: ${{ secrets.HF_USERNAME }}
+          password: ${{ secrets.HF_PASSWORD }}  # Use `token` if `password` is not supported
+        add_to_git_credentials: true
+        
       - name: Check if logged in   
-        run: |
-           huggingface-cli whoami
-              - name: Push to Hugging Face
-        uses: backendcloud/hugging-push@v0.2.3
-        with:
-          # The Hugging Face repo id you want to sync to.
-          # A repo with this name will be created if it doesn't exist. Required.
-          # huggingface_repo: 'ChatGPT'  # Uncomment and set if needed
+        run: huggingface-cli whoami
 
-          # Hugging Face token with write access. Required.
-          hf_token: ${{ secrets.HF_PASSWORDD }}
-        
-        
-      - name: Sync to Hugging Face Repo    
+      - name: Push and Sync to Hugging Face Repo    
         uses: backendcloud/hugging-push@v0.2.3
         with:
-            repo_type: 'space'
-            private: false  
-            space_sdk: 'gradio'
+          huggingface_repo: 'kerjaaa/trash'  # Replace with the target repo ID
+          hf_token: ${{ secrets.HF_PASSWORDD }}
+          repo_type: 'space'
+          private: false  
+          space_sdk: 'gradio'
