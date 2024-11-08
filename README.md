@@ -1,91 +1,53 @@
+Tentu, berikut adalah penjelasan langkah-langkah lengkap untuk menjalankan proyek ini, termasuk memasang semua *requirements* sebelum menjalankan file pertama (`Trash_Classification.ipynb`).
 
-# Trash Classification with TensorFlow ResNet
+### Langkah-langkah Menjalankan Proyek
 
-This repository contains a ResNet-based model for classifying images of trash into categories. The project utilizes TensorFlow, with data augmentation, model tracking through WandB, and automation via GitHub Actions. The trained model is published on Hugging Face Hub.
+#### 1. **Menginstal Dependencies (Requirements)**
+   Sebelum menjalankan `Trash_Classification.ipynb`, pastikan Anda menginstal semua *dependencies* yang diperlukan. Tambahkan semua *dependencies* dalam file `requirements.txt`, lalu jalankan perintah berikut untuk menginstalnya:
 
-## Project Structure
+   ```bash
+   pip install -r requirements.txt
+   ```
 
-- `notebooks/`: Jupyter Notebook with the training pipeline.
-- `src/`: Python scripts for data preprocessing, model training, and evaluation.
-- `README.md`: Instructions for setup and usage.
-- `requirements.txt`: List of dependencies.
+   **Isi `requirements.txt` mungkin termasuk:**
+   ```plaintext
+   tensorflow
+   numpy
+   pandas
+   matplotlib
+   wandb
+   huggingface_hub
+   datasets
+   pillow
+   ```
 
-## Getting Started
+   Pastikan semua *libraries* yang tercantum di atas telah terinstal, karena masing-masing diperlukan dalam notebook.
 
-### 1. Clone the Repository
+#### 2. **Menjalankan File `Trash_Classification.ipynb` untuk Training Model**
 
-```bash
-git clone https://github.com/your_username/trash-classification.git
-cd trash-classification
-```
+   Setelah dependencies terpasang, berikut langkah-langkah untuk menjalankan file ini:
+   
+   - **Buka Notebook**: Buka Jupyter Notebook di lokasi `/workspaces/aitask/notebooks/Trash_Classification.ipynb`.
+   - **Login ke W&B**: Di dalam notebook, pastikan Anda telah memasukkan kunci API W&B yang benar pada baris `wandb.login(key="967fafd5558eeeff3ce5681cf55c71633438428d")`.
+   - **Jalankan Semua Cell**: Eksekusi cell secara berurutan untuk memuat dataset, melakukan preprocessing dan augmentasi gambar, lalu melatih model menggunakan ResNet50.
+   - **Simpan Model**: Model akan otomatis disimpan sebagai `simpan_resnet50_model.h5` di akhir proses jika akurasi validasi mencapai minimal 80%.
 
-### 2. Install Dependencies
+#### 3. **Mengunggah Model ke Hugging Face dengan `model_training.yml`**
 
-```bash
-pip install -r requirements.txt
-```
+   Setelah model disimpan, Anda dapat mengunggahnya ke Hugging Face dengan menjalankan *workflow* `model_training.yml`. Berikut cara memastikan *workflow* ini berjalan:
 
-### 3. Set Up Environment Variables
+   - **Tambah Token Hugging Face ke GitHub Secrets**: Pastikan token Anda tersimpan di *GitHub Secrets* dengan nama `HF_TOKEN`.
+   - **Jalankan Workflow `model_training.yml`**:
+     - Setiap kali melakukan *push* atau *pull request* ke cabang `main`, *workflow* ini akan otomatis mengunggah model ke Hugging Face.
+   
+   **Langkah-langkah yang dilakukan oleh `model_training.yml`:**
+   - Menyiapkan Python 3.8 dan menginstal `huggingface_hub`.
+   - Login ke Hugging Face menggunakan `HF_TOKEN`.
+   - Membuat repositori model di akun atau organisasi Hugging Face Anda.
+   - Mengunggah file `simpan_resnet50_model.h5` ke repositori yang ditentukan.
 
-Set up your WandB API key and authenticate:
+#### Catatan Tambahan
+   - **File Path**: Pastikan path ke model (`simpan_resnet50_model.h5`) benar di *workflow* YAML.
+   - **Verifikasi di Hugging Face Hub**: Setelah *workflow* selesai, Anda bisa mengecek model di Hugging Face Hub di repositori `InnovateXLab/trash`.
 
-```bash
-export WANDB_API_KEY="your_wandb_api_key"
-```
-
-### 4. Run the Notebook
-
-Open and execute the pipeline in `notebooks/Trash_Classification.ipynb`:
-
-```bash
-jupyter notebook notebooks/Trash_Classification.ipynb
-```
-
-### 5. Run Training with Scripts
-
-Alternatively, use the following command to start training:
-
-```bash
-python src/train_model.py
-```
-
-## Model Training & Saving
-
-The model will be saved as `simpan_resnet_model.h5` if it meets accuracy and stability thresholds (80% accuracy, max 5% train-validation gap).
-
-## Publishing on Hugging Face
-
-Upload to Hugging Face Hub using `huggingface-cli`:
-
-```bash
-huggingface-cli login
-huggingface-cli upload simpan_resnet_model.h5 --repo your_hf_repo_name
-```
-
-## Running Predictions
-
-Run predictions with `src/predict_image.py` by providing an image path:
-
-```bash
-python src/predict_image.py --img_path path/to/your/image.jpg
-```
-
-## Automation with GitHub Actions
-
-This project includes a GitHub Actions workflow that automates model training. Simply push to start the workflow.
-
-## Results and Evaluation
-
-Evaluate the model on test data:
-
-```bash
-python src/evaluate_model.py
-```
-
-## License
-
-This project is licensed under the MIT License.
-
-## Acknowledgments
-
-Special thanks to the creators of the TrashNet dataset and the TensorFlow and Hugging Face teams.
+Dengan mengikuti langkah-langkah ini, proyek Anda akan siap dijalankan untuk training dan pengunggahan model otomatis.
