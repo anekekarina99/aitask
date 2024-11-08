@@ -1,0 +1,6 @@
+{
+    "python.analysis.extraPaths": [
+        "./src/train_",
+        "./src/train_"
+    ]
+}
