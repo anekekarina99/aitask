@@ -38,7 +38,7 @@ jobs:
 
           # Menggunakan huggingface_hub untuk upload file .h5
           python -m huggingface_hub.upload_file \
-            --path_or_file simpan_resnet_model.h5 \  # Path file .h5
+            --path_or_file notebooks/simpan_resnet_model.h5 \  # Path file .h5
             --repo_id InnovateXLab/trash \  # Sesuaikan nama organisasi dan repo
             --repo_type model \
             --token $HF_TOKEN
