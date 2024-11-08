@@ -27,7 +27,7 @@ jobs:
         with:
           username: ${{ secrets.HF_USERNAME }}
           key: ${{ secrets.HF_PASSWORDD }}  # Use `token` if `password` is not supported
-        add_to_git_credentials: true
+          add_to_git_credentials: false
 
       - name: Check if logged in   
         run: huggingface-cli whoami
