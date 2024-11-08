@@ -230,6 +230,20 @@ def main():
 
     # Menentukan jumlah kelas
     num_classes = len(set(train_labels))
+    # initialize wandb with your project name and optionally with configutations.
+# play around with the config values and see the result on your wandb dashboard.
+    config = {
+              "learning_rate": 0.001,
+              "epochs": 10,
+              "batch_size": 64,
+              "log_step": 200,
+              "val_log_step": 50,
+              "architecture": "ResNet",
+              "dataset": "TrashNet"
+    }
+
+    run = wandb.init(project='my-tf-trash', config=config)
+    config = wandb.config
     model = train_and_save_model(train_images, train_labels, val_images, val_labels, num_classes, epochs=10)
 
     # Mengevaluasi model
@@ -253,6 +267,7 @@ def main():
     plt.show()
     
 
+    run.finish() 
 
 if __name__ == "__main__":
     main()
