@@ -23,12 +23,12 @@ jobs:
           pip install requests
 
       - name: Login to Hugging Face Hub 
-        uses: osbm/huggingface-login@v0.0.2
+        uses: osbm/huggingface-login@v0.0.1
         with:
           username: ${{ secrets.HF_USERNAME }}
-          password: ${{ secrets.HF_PASSWORD }}  # Use `token` if `password` is not supported
+          key: ${{ secrets.HF_PASSWORDD }}  # Use `token` if `password` is not supported
         add_to_git_credentials: true
-        
+
       - name: Check if logged in   
         run: huggingface-cli whoami
 
