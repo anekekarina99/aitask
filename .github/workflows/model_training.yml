@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: [self-hosted, gpu]  # Specify your self-hosted runner with GPU support
+    runs-on: ubuntu-latest # Specify your self-hosted runner with GPU support
 
     steps:
       - name: Check out repository
