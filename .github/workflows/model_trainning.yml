@@ -25,7 +25,7 @@ jobs:
       - name: Login to Hugging Face Hub 
         uses: osbm/huggingface-login@v0.0.1
         with:
-          username: ${{ secrets.HF_USERNAME }}
+          username: ${{ secrets.HD_USERNAME }}
           key: ${{ secrets.HF_TOKEN }}  # Use `token` if `password` is not supported
           add_to_git_credentials: false
 
