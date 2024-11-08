@@ -31,8 +31,10 @@ jobs:
         run: python src/train_model.py  
 
       - name: Upload to Hugging Face
-        if: success()  
+        if: ${{ success() }}  
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}  # Pastikan untuk menyimpan token di Secrets GitHub dengan nama 'HF_TOKEN'
         run: |
-          huggingface-cli login --token ${{ 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 }}
-          huggingface-cli repo create your_model_name --type model --organization your_organization_name --private
-          huggingface-cli upload simpan_resnet_model.h5 --repo your_model_name --path "/"
+          echo $HF_TOKEN | huggingface-cli login
+          huggingface-cli repo create trash --type model --organization InnovateXLab --private
+          huggingface-cli upload simpan_resnet_model.h5 --repo trash --path "/"
