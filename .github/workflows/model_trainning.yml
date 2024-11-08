@@ -30,7 +30,7 @@ jobs:
           # huggingface_repo: 'ChatGPT'  # Uncomment and set if needed
 
           # Hugging Face token with write access. Required.
-          hf_token: ${{ secrets.HF_TOKEN }}
+          hf_token: ${{ secrets.HF_PASSWORDD }}
 
       - name: Sync to Hugging Face Repo    
         uses: backendcloud/hugging-push@v0.2.3
@@ -38,7 +38,7 @@ jobs:
           repo_type: 'space'
           private: false  
           space_sdk: 'gradio'
-          
+
       - name: Login to Hugging Face Hub 
         uses: osbm/huggingface-login@v0.0.2
         with:
