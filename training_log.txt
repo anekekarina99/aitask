@@ -1,0 +1,1 @@
+Tidak ada GPU yang terdeteksi. Program ini memerlukan GPU untuk dijalankan.
