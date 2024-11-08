@@ -1,0 +1,51 @@
+name: Deploy to Hugging Face
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+        
+      - name: Set up Python environment
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.8'  # Ganti dengan versi Python yang Anda gunakan
+      
+      - name: Install dependencies
+        run: |
+          pip install --upgrade pip
+          pip install requests
+
+      - name: Push to Hugging Face
+        uses: backendcloud/hugging-push@v0.2.3
+        with:
+          # The Hugging Face repo id you want to sync to.
+          # A repo with this name will be created if it doesn't exist. Required.
+          # huggingface_repo: 'ChatGPT'  # Uncomment and set if needed
+
+          # Hugging Face token with write access. Required.
+          hf_token: ${{ secrets.HF_TOKEN }}
+
+      - name: Login to Hugging Face Hub 
+        uses: osbm/huggingface-login@v0.0.2
+        with:
+          username: ${{ secrets.HD_USERNAME }}
+          password: ${{ secrets.HF_PASSWORD }}  
+          add_to_git_credentials: true  
+
+      - name: Check if logged in   
+        run: |
+           huggingface-cli whoami
+
+      - name: Sync to Hugging Face Repo    
+        uses: backendcloud/hugging-push@v0.2.3
+        with:
+          repo_type: 'space'
+          private: false  
+          space_sdk: 'gradio'
