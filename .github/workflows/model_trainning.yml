@@ -36,7 +36,7 @@ jobs:
         uses: backendcloud/hugging-push@v0.2.3
         with:
           huggingface_repo: 'kerjaaa/trash'  # Replace with the target repo ID
-          hf_token: ${{ secrets.HF_PASSWORDD }}
+          hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: 'space'
           private: false  
           space_sdk: 'gradio'
