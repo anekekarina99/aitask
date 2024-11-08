@@ -20,5 +20,5 @@ jobs:
       env:
         HF_TOKEN: ${{ secrets.HF_TOKEN }}
       run: |
-        git remote add hf https://huggingface.co/spaces/kerjaaa/trash
+        git remote add hf https://huggingface.co/kerjaaa/trash
         git push --force hf main
