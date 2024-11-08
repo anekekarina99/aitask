@@ -10,7 +10,7 @@ on:
 
 jobs:
   build:
-    runs-on: ubuntu-latest  
+    runs-on: [self-hosted, gpu]  # Specify your self-hosted runner with GPU support
 
     steps:
       - name: Check out repository
@@ -19,7 +19,7 @@ jobs:
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
-          python-version: '3.8'
+          python-version: '3.11.7'  # Set this to the version you found
 
       - name: Install dependencies
         run: |
