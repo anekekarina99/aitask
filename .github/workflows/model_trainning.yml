@@ -35,7 +35,7 @@ jobs:
       - name: Push and Sync to Hugging Face Repo    
         uses: backendcloud/hugging-push@v0.2.3
         with:
-          #huggingface_repo: 'kerjaaa/trashhh'  # Replace with the target repo ID
+          huggingface_repo: 'trash'  # Replace with the target repo ID
           hf_token: ${{ secrets.HF_TOKEN }}
           repo_type: 'space'
           private: false  
