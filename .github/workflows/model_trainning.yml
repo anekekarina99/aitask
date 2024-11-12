@@ -37,6 +37,6 @@ jobs:
         with:
           huggingface_repo: 'trash'  # Replace with the target repo ID
           hf_token: ${{ secrets.HF_TOKEN }}
-          repo_type: 'space'
+          repo_type: 'models'
           private: false  
-          space_sdk: 'gradio'
+          
